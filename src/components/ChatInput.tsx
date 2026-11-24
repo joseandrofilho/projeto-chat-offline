@@ -1,15 +1,24 @@
 import { useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
+import type { Sender } from "../types/message";
+import SenderToggle from "./SenderToggle";
 
 type ChatInputProps = {
+  sender: Sender;
   onSend: (text: string) => void;
+  onToggleSender: () => void;
 };
 
 const MAX_TEXTAREA_HEIGHT = 160;
 
-export default function ChatInput({ onSend }: ChatInputProps) {
+export default function ChatInput({
+  sender,
+  onSend,
+  onToggleSender,
+}: ChatInputProps) {
   const [text, setText] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const isUser = sender === "user";
 
   function resizeTextarea() {
     const textarea = textareaRef.current;
@@ -56,8 +65,15 @@ export default function ChatInput({ onSend }: ChatInputProps) {
 
   return (
     <footer className="px-4 pb-6">
-      <div className="rounded-2xl border border-stone-300 bg-white p-3 shadow-sm">
+      <div
+        className={`rounded-2xl border bg-white p-3 shadow-sm transition-colors ${
+          isUser
+            ? "border border-stone-300"
+            : "border-2 border-purple-500"
+        }`}
+      >
         <div className="flex items-end gap-3">
+          <SenderToggle sender={sender} onToggle={onToggleSender} />
           <textarea
             ref={textareaRef}
             className="min-h-8 max-h-40 min-w-0 flex-1 resize-none leading-6 text-stone-900 outline-none placeholder:text-stone-500"

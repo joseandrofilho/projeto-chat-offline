@@ -1,10 +1,11 @@
 import { useState } from "react";
-import type { Message } from "../types/message";
+import type { Message, Sender } from "../types/message";
 import ChatInput from "./ChatInput";
 import MessageList from "./MessageList";
 
 export default function Chat() {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [sender, setSender] = useState<Sender>("user");
 
   function handleSend(text: string) {
     if (text.trim() === "") {
@@ -14,10 +15,14 @@ export default function Chat() {
     const message: Message = {
       id: crypto.randomUUID(),
       text,
-      sender: "user",
+      sender,
     };
 
     setMessages((currentMessages) => [...currentMessages, message]);
+  }
+
+  function handleToggleSender() {
+    setSender((currentSender) => (currentSender === "user" ? "robot" : "user"));
   }
 
   return (
@@ -27,7 +32,11 @@ export default function Chat() {
         aria-label="Chat"
       >
         <MessageList messages={messages} />
-        <ChatInput onSend={handleSend} />
+        <ChatInput
+          sender={sender}
+          onSend={handleSend}
+          onToggleSender={handleToggleSender}
+        />
       </section>
     </main>
   );
