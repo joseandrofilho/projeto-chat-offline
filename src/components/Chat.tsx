@@ -1,9 +1,24 @@
 import { useState } from "react";
 import type { Message } from "../types/message";
+import ChatInput from "./ChatInput";
 import MessageList from "./MessageList";
 
 export default function Chat() {
-  const [messages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
+
+  function handleSend(text: string) {
+    if (text.trim() === "") {
+      return;
+    }
+
+    const message: Message = {
+      id: crypto.randomUUID(),
+      text,
+      sender: "user",
+    };
+
+    setMessages((currentMessages) => [...currentMessages, message]);
+  }
 
   return (
     <main className="min-h-dvh bg-stone-200">
@@ -12,6 +27,7 @@ export default function Chat() {
         aria-label="Chat"
       >
         <MessageList messages={messages} />
+        <ChatInput onSend={handleSend} />
       </section>
     </main>
   );
