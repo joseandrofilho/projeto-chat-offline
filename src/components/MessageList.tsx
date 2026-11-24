@@ -19,7 +19,7 @@ export default function MessageList({ messages }: MessageListProps) {
       aria-label="Historico de mensagens"
     >
       {messages.length === 0 ? (
-        <div className="flex h-full items-center justify-center text-center text-stone-600">
+        <div className="flex h-full items-center justify-center px-4 text-center text-stone-700">
           Nenhuma mensagem ainda. Envie a primeira!
         </div>
       ) : (

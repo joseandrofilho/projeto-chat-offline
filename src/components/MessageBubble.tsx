@@ -10,10 +10,10 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
   return (
     <div className={`flex w-full ${isUser ? "justify-end" : "justify-start"}`}>
       <div
-        className={`max-w-[80%] rounded-lg px-3 py-2 text-stone-900 shadow-sm whitespace-pre-wrap break-words ${
+        className={`max-w-[80%] break-words whitespace-pre-wrap rounded-lg px-3 py-2 text-sm leading-6 text-stone-900 shadow-sm sm:text-base ${
           isUser ? "bg-gray-200" : "bg-white"
         }`}
-        style={{ overflowWrap: "anywhere", whiteSpace: "pre-wrap" }}
+        style={{ overflowWrap: "anywhere" }}
       >
         {message.text}
       </div>

@@ -64,19 +64,19 @@ export default function ChatInput({
   }
 
   return (
-    <footer className="px-4 pb-6">
+    <footer className="px-3 pb-4 sm:px-4 sm:pb-6">
       <div
-        className={`rounded-2xl border bg-white p-3 shadow-sm transition-colors ${
+        className={`rounded-2xl border-2 bg-white p-3 shadow-sm transition-[border-color,box-shadow] duration-200 ${
           isUser
-            ? "border border-stone-300"
-            : "border-2 border-purple-500"
+            ? "border-stone-300"
+            : "border-purple-500 shadow-purple-100"
         }`}
       >
         <div className="flex items-end gap-3">
           <SenderToggle sender={sender} onToggle={onToggleSender} />
           <textarea
             ref={textareaRef}
-            className="min-h-8 max-h-40 min-w-0 flex-1 resize-none leading-6 text-stone-900 outline-none placeholder:text-stone-500"
+            className="min-h-9 max-h-40 min-w-0 flex-1 resize-none leading-6 text-stone-900 outline-none placeholder:text-stone-500"
             value={text}
             onChange={(event) => handleChange(event.target.value)}
             onKeyDown={handleKeyDown}
